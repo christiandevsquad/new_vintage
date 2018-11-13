@@ -10,4 +10,9 @@ class Tag extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    public function products() {
+        return $this->belongsToMany(Product::class)
+                    ->withTimestamps();
+    }
 }
