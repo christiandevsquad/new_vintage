@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Model\Product;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $user = Auth::user();
+        $data = Product::paginate(10);
+
+        return view('admin.product.index', ['user' => $user], compact('data'));
     }
 
     /**
@@ -24,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        dd('Test');
     }
 
     /**
@@ -44,9 +49,11 @@ class ProductController extends Controller
      * @param  \App\Model\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
-    {
-        //
+    public function show($id)
+    {       
+        $product = Product::find($id);
+
+        return view('admin.product.update', compact('product','id'));   
     }
 
     /**

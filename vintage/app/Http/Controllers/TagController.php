@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Tag;
+use App\Model\Product;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -12,9 +13,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return $product->tags;
     }
 
     /**

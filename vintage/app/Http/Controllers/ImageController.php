@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Image;
+use App\Model\Product;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
@@ -12,9 +13,9 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return $product->images;
     }
 
     /**
