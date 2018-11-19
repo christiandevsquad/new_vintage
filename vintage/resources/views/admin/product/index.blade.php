@@ -12,7 +12,9 @@
         <div class="col-10">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-primary">Add Product</button> 
+                    {{-- <button type="button" class="btn btn-primary">Add Product</button> --}}
+                    {{-- <a href="{{ action('ProductController@create') }}" class="btn btn-primary">Add Product</a> --}}
+                    <button type="submit" formaction="{{ action('ProductController@create')}}" class="btn btn-primary">Add Product</button>
                 </div>
 
                 <div class="btn-group mr-2" role="group" aria-label="Second group">
@@ -45,9 +47,8 @@
                                 <td style="text-align:center">{{ $item->subName }}</td>
                                 <td style="text-align:center">{{ $item->price }}</td>
                                 <td style="text-align:center">
-                                    <a href="{{ action('ProductController@show', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <a href="{{ action('ProductController@destroy', $item) }}" class="btn btn-outline-danger">Delete</a>
-                                    <a href="{{ action('ProductController@create') }}" class="btn btn-outline-danger">Show</a>
+                                    <a href="{{ action('ProductController@edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ action('ProductController@destroy', $item->id) }}" class="btn btn-outline-danger">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

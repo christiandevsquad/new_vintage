@@ -81,16 +81,12 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Vintage Prototype
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://github.com/christiandevsquad/new_vintage">My Github page</a>
+                    <a href="https://xd.adobe.com/view/48e05c04-6748-41cb-412f-ac33e7adfcd5-3ed1/screen/d4ee799f-b7e2-44e4-a14d-5cf29c311299/dashboard/?fullscreen">Based template</a>
                 </div>
             </div>
         </div>

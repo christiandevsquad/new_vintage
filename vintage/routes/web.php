@@ -25,3 +25,7 @@ Route::resource('products/{product}/tags', 'TagController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/app', function () {
+    return view('admin.product.add');
+});

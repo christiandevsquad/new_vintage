@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $user = Auth::user();
@@ -29,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        dd('Test');
+        return view('admin.product.add');
     }
 
     /**
@@ -40,7 +35,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product;
+
+        $product->name = $request->name;
+        $product->subName = $request->subName;
+        $product->price = $request->price;
+        $product->description = $request->description;
+
+        $product->save();
+
+        return redirect('products')->with('success', 'Information has been added');
     }
 
     /**
@@ -62,9 +66,11 @@ class ProductController extends Controller
      * @param  \App\Model\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('admin.product.edit', compact('product', 'id'));
     }
 
     /**
@@ -74,9 +80,18 @@ class ProductController extends Controller
      * @param  \App\Model\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+
+        $product->name = $request->name;
+        $product->subName = $request->subName;
+        $product->price = $request->price;
+        $product->description = $request->description;
+
+        $product->save();
+
+        return redirect('products');
     }
 
     /**

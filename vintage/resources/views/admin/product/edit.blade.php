@@ -56,31 +56,33 @@ float: none;
 		</div>
 
 		<div class="col">
-			<form action="{{ action('ProductController@store') }}" method="POST" enctype="multipart/form-data"> 
-			{{-- <form action="{{ action('ProductController@update')}}" method="PATCH" enctype="multipart/form-data"> --}}
-			{{-- <form action="{{ route('products.update', $product)}}" method="PATCH" enctype="multipart/form-data"> --}}
+			<form action="{{ action('ProductController@update', $id)}}" method="POST" enctype="multipart/form-data"> 
+			<!-- <form action="{{ action('ProductController@update', $product)}}" method="PATCH" enctype="multipart/form-data">  -->
+			<!-- <form action="{{ route('products.update', $product)}}" method="PATCH" enctype="multipart/form-data"> -->
 				@csrf
+				<input name="_method" type="hidden" value="PATCH">
+
 				<div class="row justify-content-center">        
 					<div class="col">
 						<div class="form-group">
 							<nav class="navbar-nav navbar-expand-sm justify-content-end">
 								<button type="submit" class="btn btn-primary mr-sm-2 btn-sm">UPDATE</button>
 								<button type="submit" formaction="{{ action('ProductController@index')}}" class="btn btn-warning btn-color mr-sm-2 btn-sm">CANCEL</button>
-								<button type="button" class="btn btn-danger btn-sm ml-auto ">DELETE</button>
+								<button type="submit" class="btn btn-danger btn-sm ml-auto ">DELETE</button>
 							</nav>
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control" name="name" placeholder="Product name">
+							<input type="text" class="form-control" name="name" value="{{ $product->name }}">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" name="subName" placeholder="Product subname">
+							<input type="text" class="form-control" name="subName" value="{{ $product->subName }}">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" name="price" placeholder="Price">
+							<input type="text" class="form-control" name="price" value="{{ $product->price }}">
 						</div>
 						<div class="form-group">
-							<textarea class="form-control" rows="10" name="description" placeholder="Digit the products description"></textarea>
+							<textarea class="form-control" rows="10" name="description"><?php echo $product->description ?></textarea>
 						</div> 
 					</div>
 
@@ -91,17 +93,19 @@ float: none;
 							</nav>
 						</div>
 
-						{{-- 			
-							<div class="form-group">
-								<input type="text" class="form-control" name="tag" placeholder="tag">
-							</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="tag" value="{{ $product->tag }}">
+						</div>
 
-							<img src="{{ $product->product_image}}" class="img-fluid" alt="Responsive image">
 
-							<form action="" method="post" enctype="multipart/form-data">
-								<input type="file" name="files[]" multiple >
-								<input type="submit" name="submit" value="Upload">
-							</form>
+						<!-- 			
+
+						<img src="{{ $product->product_image}}" class="img-fluid" alt="Responsive image">
+
+						<form action="" method="post" enctype="multipart/form-data">
+							<input type="file" name="files[]" multiple >
+							<input type="submit" name="submit" value="Upload">
+						</form>
 
 							<div class="file-loading">
 								<input id="input-ficons-3" name="input-ficons-3[]" multiple type="file">
@@ -120,7 +124,7 @@ float: none;
 								}
 							});
 							</script>
-						--}}
+						-->
 					</div>
 				</div>
 			</form>
