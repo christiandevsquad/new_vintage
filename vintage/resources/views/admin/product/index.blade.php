@@ -11,13 +11,11 @@
 
         <div class="col-10">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                    {{-- <button type="button" class="btn btn-primary">Add Product</button> --}}
-                    {{-- <a href="{{ action('ProductController@create') }}" class="btn btn-primary">Add Product</a> --}}
-                    <button type="submit" formaction="{{ action('ProductController@create')}}" class="btn btn-primary">Add Product</button>
+                <div class="btn-group mr-2" role="toolbar" aria-label="First group">
+                    <a href="{{ action('ProductController@create') }}" class="btn btn-primary">Add Product</a>
                 </div>
 
-                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                <div class="btn-group mr-2" role="toolbar" aria-label="Second group">
                     <button type="button" class="btn btn-outline-success">Import Product</button>
                 </div>
 

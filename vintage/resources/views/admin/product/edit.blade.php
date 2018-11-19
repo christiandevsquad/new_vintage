@@ -56,9 +56,7 @@ float: none;
 		</div>
 
 		<div class="col">
-			<form action="{{ action('ProductController@update', $id)}}" method="POST" enctype="multipart/form-data"> 
-			<!-- <form action="{{ action('ProductController@update', $product)}}" method="PATCH" enctype="multipart/form-data">  -->
-			<!-- <form action="{{ route('products.update', $product)}}" method="PATCH" enctype="multipart/form-data"> -->
+			<form action="{{ action('ProductController@update', $id) }}" method="POST" enctype="multipart/form-data"> 
 				@csrf
 				<input name="_method" type="hidden" value="PATCH">
 
@@ -67,8 +65,8 @@ float: none;
 						<div class="form-group">
 							<nav class="navbar-nav navbar-expand-sm justify-content-end">
 								<button type="submit" class="btn btn-primary mr-sm-2 btn-sm">UPDATE</button>
-								<button type="submit" formaction="{{ action('ProductController@index')}}" class="btn btn-warning btn-color mr-sm-2 btn-sm">CANCEL</button>
-								<button type="submit" class="btn btn-danger btn-sm ml-auto ">DELETE</button>
+								<button href="{{ action('ProductController@index') }}" class="btn btn-warning btn-color mr-sm-2 btn-sm">CANCEL</button>
+								<button type="button" class="btn btn-danger btn-sm ml-auto ">DELETE</button>
 							</nav>
 						</div>
 
@@ -98,7 +96,11 @@ float: none;
 						</div>
 
 
-						<!-- 			
+						<div class="custom-file">
+							<input type="file" class="custom-file-input" id="customFile">
+							<label class="custom-file-label" for="customFile">Choose image</label>
+						</div>
+						{{-- 			
 
 						<img src="{{ $product->product_image}}" class="img-fluid" alt="Responsive image">
 
@@ -124,7 +126,7 @@ float: none;
 								}
 							});
 							</script>
-						-->
+						--}}
 					</div>
 				</div>
 			</form>

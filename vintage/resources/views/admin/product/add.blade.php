@@ -57,15 +57,13 @@ float: none;
 
 		<div class="col">
 			<form action="{{ action('ProductController@store') }}" method="POST" enctype="multipart/form-data"> 
-			{{-- <form action="{{ action('ProductController@update')}}" method="PATCH" enctype="multipart/form-data"> --}}
-			{{-- <form action="{{ route('products.update', $product)}}" method="PATCH" enctype="multipart/form-data"> --}}
 				@csrf
 				<div class="row justify-content-center">        
 					<div class="col">
 						<div class="form-group">
 							<nav class="navbar-nav navbar-expand-sm justify-content-end">
 								<button type="submit" class="btn btn-primary mr-sm-2 btn-sm">UPDATE</button>
-								<button type="submit" formaction="{{ action('ProductController@index')}}" class="btn btn-warning btn-color mr-sm-2 btn-sm">CANCEL</button>
+								<button href="{{ action('ProductController@index') }}" class="btn btn-warning btn-color mr-sm-2 btn-sm">CANCEL</button>
 								<button type="button" class="btn btn-danger btn-sm ml-auto ">DELETE</button>
 							</nav>
 						</div>
