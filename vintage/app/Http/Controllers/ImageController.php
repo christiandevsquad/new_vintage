@@ -37,10 +37,14 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        $imageName = request()->file->getClientOriginalName();
-        request()->file->move(public_path('upload'), $imageName);
+        $image_name = str_random(32);
+        $file_type = request()->file->getClientOriginalExtension();
+        $image_name .= '.'.$file_type;
 
-    	return response()->json(['uploaded' => '/upload/'.$imageName]);
+
+        request()->file->move(public_path('upload'), $image_name);
+
+    	return response()->json(['uploaded' => '/upload/'.$image_name]);
     }
 
     /**

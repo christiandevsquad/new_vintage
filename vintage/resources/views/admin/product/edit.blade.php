@@ -2,33 +2,36 @@
 
 @section('content')
 
-<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
-<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you 
-    wish to resize images before upload. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js" type="text/javascript"></script>
-<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
-    This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/sortable.min.js" type="text/javascript"></script>
-<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
-    HTML files. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/purify.min.js" type="text/javascript"></script>
-<!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js 
-   3.3.x versions without popper.min.js. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/sortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/purify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
-    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- the main fileinput plugin file -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.min.js"></script>
-<!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/themes/fa/theme.js"></script>
-<!-- optionally if you need translation for your language then include  locale file as mentioned below -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/locales/(lang).js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+<style type="text/css">
+	.main-section{
+		margin:0 auto;
+		padding: 20px;
+		margin-top: 100px;
+		background-color: #fff;
+		box-shadow: 0px 0px 20px #c1c1c1;
+	}
+
+	.fileinput-remove,
+
+	.fileinput-upload{
+		display: none;
+	}
+
+</style>
 
 <style>
 .btn-color{
@@ -105,6 +108,15 @@ float: none;
 							<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=100>
 						@endforeach
 
+						{{-- Upload multi-images section --}}
+						{!! csrf_field() !!}
+						<div class="form-group">
+							<div class="file-loading">
+								<input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+							</div>
+						</div>
+
+						{{--
 						<div class="custom-file">
 							<input type="file" class="custom-file-input" id="customFile">
 							<label class="custom-file-label" for="customFile">Choose image</label>
@@ -115,6 +127,7 @@ float: none;
 							<input type="file" name="files[]" multiple >
 							<input type="submit" name="submit" value="UPLOAD">
 						</form>
+						--}}
 
 					</div>
 				</div>
@@ -122,4 +135,27 @@ float: none;
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$("#file-1").fileinput({
+		theme: 'fa',
+		uploadUrl: "/upload",
+
+		uploadExtraData: function() {
+			return {
+				_token: $("input[name='_token']").val(),
+			};
+		},
+
+		allowedFileExtensions: ['jpg', 'png', 'gif'],
+		overwriteInitial: false,
+		maxFileSize:2000,
+		maxFilesNum: 10,
+
+		slugCallback: function (filename) {
+			return filename.replace('(', '_').replace(']', '_');
+		}
+	});
+</script>
+
 @endsection

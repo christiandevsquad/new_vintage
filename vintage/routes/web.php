@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
 // Routes for tests
 Route::view('/app', 'layouts.app');
+Route::get('image-view','ImageController@index');
+Route::post('image-view','ImageController@store');
