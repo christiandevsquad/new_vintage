@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search product" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" placeholder="Search product">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="button">Search</button>
                     </div>
@@ -39,14 +39,20 @@
 
                     <tbody>
                         @foreach($data as $item)
-                            <tr class='item{{ $item->id }}'>
+                            <tr class='item{{ $item->id }}' >
                                 <td style="text-align:center">{{ $item->id }}</td>
                                 <td style="text-align:center">{{ $item->name }}</td>
                                 <td style="text-align:center">{{ $item->subName }}</td>
                                 <td style="text-align:center">{{ $item->price }}</td>
-                                <td style="text-align:center">
+                                <td>
                                     <a href="{{ action('ProductController@edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <a href="{{ action('ProductController@destroy', $item->id) }}" class="btn btn-outline-danger">Delete</a>
+                                </td>
+                                <td>
+                                    <form action="{{ action('ProductController@destroy', $item->id) }}" method="POST">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

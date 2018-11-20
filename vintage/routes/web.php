@@ -15,8 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/app', 'layouts.app');
-
 // Resources
 Route::resource('products', 'ProductController');
 Route::resource('products/{product}/images', 'ImageController');
@@ -26,6 +24,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/app', function () {
-    return view('admin.product.add');
-});
+
+// Routes for tests
+Route::view('/app', 'layouts.app');

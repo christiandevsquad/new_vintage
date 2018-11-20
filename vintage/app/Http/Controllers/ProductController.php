@@ -17,22 +17,11 @@ class ProductController extends Controller
         return view('admin.product.index', ['user' => $user], compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.product.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $product = new Product;
@@ -47,25 +36,14 @@ class ProductController extends Controller
         return redirect('products')->with('success', 'Information has been added');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {       
+        /*
         $product = Product::find($id);
 
-        return view('admin.product.update', compact('product','id'));   
+        return view('admin.product.edit', compact('product','id'));   
+        */
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $product = Product::find($id);
@@ -73,13 +51,6 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('product', 'id'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
@@ -94,14 +65,11 @@ class ProductController extends Controller
         return redirect('products');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect('products')->with('success', 'Information has been deleted');
     }
 }

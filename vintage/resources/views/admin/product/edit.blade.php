@@ -46,6 +46,7 @@ display: inline-block;
 vertical-align: middle;
 float: none;
 }
+
 </style>
 
 <div class="container">   
@@ -92,41 +93,29 @@ float: none;
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control" name="tag" value="{{ $product->tag }}">
+							{{--
+							@foreach($product->tags as $tag)
+							
+							@endforeach
+							--}}
+							<input type="text" class="form-control" name="tag" value="{{ $product->tags}}">
 						</div>
 
+						@foreach($product->images as $image)
+							<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=100>
+						@endforeach
 
 						<div class="custom-file">
 							<input type="file" class="custom-file-input" id="customFile">
 							<label class="custom-file-label" for="customFile">Choose image</label>
 						</div>
-						{{-- 			
-
-						<img src="{{ $product->product_image}}" class="img-fluid" alt="Responsive image">
 
 						<form action="" method="post" enctype="multipart/form-data">
+							Select Image Files to Upload:
 							<input type="file" name="files[]" multiple >
-							<input type="submit" name="submit" value="Upload">
+							<input type="submit" name="submit" value="UPLOAD">
 						</form>
 
-							<div class="file-loading">
-								<input id="input-ficons-3" name="input-ficons-3[]" multiple type="file">
-							</div>
-							<script>
-							$("#input-ficons-3").fileinput({
-								uploadUrl: "images/upload",
-								previewFileIcon: '<i class="fa fa-file"></i>',
-								allowedPreviewTypes: ['image', 'text'], // allow only preview of image & text files
-								previewFileIconSettings: {
-									'docx': '<i class="fa fa-file-word-o text-primary"></i>',
-									'xlsx': '<i class="fa fa-file-excel-o text-success"></i>',
-									'pptx': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
-									'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
-									'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
-								}
-							});
-							</script>
-						--}}
 					</div>
 				</div>
 			</form>

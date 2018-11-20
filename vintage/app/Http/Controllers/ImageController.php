@@ -15,7 +15,8 @@ class ImageController extends Controller
      */
     public function index(Product $product)
     {
-        return $product->images;
+        return view('admin.image.image-view');
+        // return $product->images;
     }
 
     /**
@@ -36,7 +37,10 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $imageName = request()->file->getClientOriginalName();
+        request()->file->move(public_path('upload'), $imageName);
+
+    	return response()->json(['uploaded' => '/upload/'.$imageName]);
     }
 
     /**
