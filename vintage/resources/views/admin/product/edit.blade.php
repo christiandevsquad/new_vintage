@@ -95,15 +95,6 @@ float: none;
 							</nav>
 						</div>
 
-						<div class="form-group">
-							{{--
-							@foreach($product->tags as $tag)
-							
-							@endforeach
-							--}}
-							<input type="text" class="form-control" name="tag" value="{{ $product->tags}}">
-						</div>
-
 						@foreach($product->images as $image)
 							<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=100>
 						@endforeach
@@ -128,6 +119,20 @@ float: none;
 							<input type="submit" name="submit" value="UPLOAD">
 						</form>
 						--}}
+
+						{{-- Tag input section --}}
+
+						<div class="form-group">
+							<input type="text" class="form-control" name="tag" value="<?php 
+								$list = "";
+								foreach($product->tags as $tag) { 
+									$list .= " ".$tag->product_tag;
+								} 
+
+								print($list); 
+								?>">
+						</div>
+
 
 					</div>
 				</div>
