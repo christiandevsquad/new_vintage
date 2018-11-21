@@ -2,36 +2,12 @@
 
 @section('content')
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/piexif.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/sortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/plugins/purify.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/themes/fa/theme.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/locales/(lang).js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
-
-<style type="text/css">
-	.main-section{
-		margin:0 auto;
-		padding: 20px;
-		margin-top: 100px;
-		background-color: #fff;
-		box-shadow: 0px 0px 20px #c1c1c1;
-	}
-
-	.fileinput-remove,
-
-	.fileinput-upload{
-		display: none;
-	}
-
-</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>  
 
 <style>
 .btn-color{
@@ -100,27 +76,22 @@ float: none;
 						@endforeach
 
 						{{-- Upload multi-images section --}}
-						{!! csrf_field() !!}
+
+						{{--
+						@csrf	
 						<div class="form-group">
 							<div class="file-loading">
-								<input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+								<input id="file-1" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="1">
 							</div>
 						</div>
 
-						{{--
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="customFile">
-							<label class="custom-file-label" for="customFile">Choose image</label>
-						</div>
-
-						<form action="" method="post" enctype="multipart/form-data">
-							Select Image Files to Upload:
-							<input type="file" name="files[]" multiple >
-							<input type="submit" name="submit" value="UPLOAD">
-						</form>
 						--}}
 
 						{{-- Tag input section --}}
+						<div class="form-group">
+							<label>Add Country Tags:</label>
+							<input type="text" name="countries" placeholder="Type here.." class="typeahead tm-input form-control tm-input-info"/>
+						</div>
 
 						<div class="form-group">
 							<input type="text" class="form-control" name="tag" value="<?php 
@@ -132,8 +103,6 @@ float: none;
 								print($list); 
 								?>">
 						</div>
-
-
 					</div>
 				</div>
 			</form>
@@ -141,11 +110,11 @@ float: none;
 	</div>
 </div>
 
+{{--
 <script type="text/javascript">
 	$("#file-1").fileinput({
 		theme: 'fa',
 		uploadUrl: "/upload",
-
 		uploadExtraData: function() {
 			return {
 				_token: $("input[name='_token']").val(),
@@ -162,5 +131,5 @@ float: none;
 		}
 	});
 </script>
-
+--}}
 @endsection

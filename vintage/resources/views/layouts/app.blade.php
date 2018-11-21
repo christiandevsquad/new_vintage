@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-        <style>
+    <style>
     .navbar {
 		-webkit-box-shadow: 0 8px 6px -6px #999;
 		-moz-box-shadow: 0 8px 6px -6px #999;

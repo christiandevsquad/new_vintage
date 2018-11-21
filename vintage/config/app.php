@@ -160,6 +160,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        // Added to implement tag input system
+        \Conner\Tagging\Providers\TaggingServiceProvider::class,
         /*
          * Package Service Providers...
          */

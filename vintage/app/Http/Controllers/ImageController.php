@@ -41,7 +41,6 @@ class ImageController extends Controller
         $file_type = request()->file->getClientOriginalExtension();
         $image_name .= '.'.$file_type;
 
-
         request()->file->move(public_path('upload'), $image_name);
 
     	return response()->json(['uploaded' => '/upload/'.$image_name]);
