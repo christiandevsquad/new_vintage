@@ -2,25 +2,6 @@
 
 @section('content')
 
-<style>
-.btn-color{
-color: #ffffff;
-}
-
-.centered {
-height: 150px;
-width: 150px;
-overflow: hidden;
-}
-
-.vcenter {
-display: inline-block;
-vertical-align: middle;
-float: none;
-}
-
-</style>
-
 <div class="container">   
 	<div class="row justify-content-center">
 		<div class="col-2">			
@@ -58,11 +39,9 @@ float: none;
 				</div>
 
 				<div class="col">
-					<div class="form-group">
 						<nav class="navbar-nav navbar-expand-sm justify-content-end">
 						<button type="button" class="btn btn-primary btn-sm ml-auto">PREVIEW</button>
 						</nav>
-					</div>
 
 					{{-- Upload multi-images section --}}
 					{{--
@@ -84,27 +63,4 @@ float: none;
 		</div>
 	</div>
 </div>
-
-{{--
-<script type="text/javascript">
-	$("#file-1").fileinput({
-		theme: 'fa',
-		uploadUrl: "/upload",
-		uploadExtraData: function() {
-			return {
-				_token: $("input[name='_token']").val(),
-			};
-		},
-
-		allowedFileExtensions: ['jpg', 'png', 'gif'],
-		overwriteInitial: false,
-		maxFileSize:2000,
-		maxFilesNum: 10,
-
-		slugCallback: function (filename) {
-			return filename.replace('(', '_').replace(']', '_');
-		}
-	});
-</script>
---}}
 @endsection
