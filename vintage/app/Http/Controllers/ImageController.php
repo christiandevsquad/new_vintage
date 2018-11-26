@@ -15,7 +15,7 @@ class ImageController extends Controller
      */
     public function index(Product $product)
     {
-        return view('admin.image.image-view');
+        // return view('admin.image.image-view');
         // return $product->images;
     }
 
@@ -35,15 +35,25 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $images, $product)
     {
-        $image_name = str_random(32);
-        $file_type = request()->file->getClientOriginalExtension();
-        $image_name .= '.'.$file_type;
+        foreach($images as $input) {
+            $new_image = new Image;
 
-        request()->file->move(public_path('upload'), $image_name);
+            $image_name = str_random(32);
+            // $file_type = request()->file->getClientOriginalExtension();
+            $file_type = $input->getClientOriginalExtension();
+            $image_name .= '.'.$file_type;
 
-    	return response()->json(['uploaded' => '/upload/'.$image_name]);
+            // request()->file->move(public_path('upload'), $image_name);
+            $input->move(public_path('upload'), $image_name);
+
+            $new_image->product_image = $image_name;
+            $new_image->save();
+        }
+        // return response()->json(['uploaded' => '/upload/'.$image_name]);
+
+        return Image::pluck('id')->toArray();
     }
 
     /**
@@ -90,4 +100,5 @@ class ImageController extends Controller
     {
         //
     }
+
 }

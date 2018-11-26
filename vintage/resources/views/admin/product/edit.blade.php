@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="container">   
 	<div class="row justify-content-center">
 		<div class="col-2">			
@@ -10,9 +12,9 @@
 		</div>
 
 		<div class="col">
-			<div class="row justify-content-center">        
-				<div class="col">
-					<form action="{{ action('ProductController@update', $id) }}" method="POST" enctype="multipart/form-data"> 
+			<form action="{{ action('ProductController@update', $id) }}" method="POST" enctype="multipart/form-data">
+				<div class="row justify-content-center">        
+					<div class="col">
 						@csrf
 						<input name="_method" type="hidden" value="PATCH">
 						<div class="form-group">
@@ -35,32 +37,44 @@
 						<div class="form-group">
 							<textarea class="form-control" rows="15" name="description"><?php echo $product->description ?></textarea>
 						</div> 
-					</form>
+					</div>
+
+					<div class="col">
+						<div class="form-group">
+							<nav class="navbar-nav navbar-expand-sm justify-content-end">
+								<button type="button" class="btn btn-primary btn-sm ml-auto">PREVIEW</button>
+							</nav>
+						</div>
+
+						{{-- Upload multi-images section --}}
+
+						<div class="form-group">
+							@if(count($product->images) > 0)
+								@foreach($product->images->slice(0,3) as $image)
+									<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=150>
+								@endforeach
+							@else 
+								<img src="{{URL::asset('/vintage_image/no.png')}}" alt="" width=150>
+							@endif
+						</div>
+
+
+						<div class="form-group">
+							@csrf
+							<input id="imgs" type="file"  name="images[]" accept="image/*" multiple>
+						</div>
+
+						{{-- Tag input section - Needs to treat the called action --}}
+						{{-- <form action="{{ action('TagController@index', $product) }}" method="GET" enctype="multipart/form-data">  --}}
+						<div class="form-group">
+							@component('components.tag_input', ['product' => $product])
+							@endcomponent
+						</div>
+					</div>
 				</div>
-
-				<div class="col">
-						<nav class="navbar-nav navbar-expand-sm justify-content-end">
-						<button type="button" class="btn btn-primary btn-sm ml-auto">PREVIEW</button>
-						</nav>
-
-					{{-- Upload multi-images section --}}
-					{{--
-					@component('components.image-view')
-					@endcomponent
-					--}}
-
-					@foreach($product->images as $image)
-						<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=100>
-					@endforeach
-
-					{{-- Tag input section - Needs to treat the called action --}}
-					<form action="{{ action('TagController@index', $product) }}" method="GET" enctype="multipart/form-data"> 
-						@component('components.tag_input', ['product' => $product])
-						@endcomponent
-					</form>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
+
 @endsection

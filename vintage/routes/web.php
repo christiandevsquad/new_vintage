@@ -28,5 +28,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::view('/app', 'layouts.app');
 Route::get('image-view','ImageController@index');
 Route::post('image-view','ImageController@store');
-Route::get('upload-image','ImageController@index');
-Route::post('upload-image',['as'=>'image.upload','uses'=>'ImageController@uploadImages']);
+//Route::get('upload-image','ImageController@index');
+//Route::post('upload-image',['as'=>'image.upload','uses'=>'ImageController@uploadImages']);
+Route::get('/test', function() {
+    return view('test');
+});
