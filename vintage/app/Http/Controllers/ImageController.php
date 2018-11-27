@@ -13,7 +13,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Product $product)
+    public function index()
     {
         // return view('admin.image.image-view');
         // return $product->images;
@@ -41,19 +41,17 @@ class ImageController extends Controller
             $new_image = new Image;
 
             $image_name = str_random(32);
-            // $file_type = request()->file->getClientOriginalExtension();
             $file_type = $input->getClientOriginalExtension();
             $image_name .= '.'.$file_type;
 
-            // request()->file->move(public_path('upload'), $image_name);
             $input->move(public_path('upload'), $image_name);
 
             $new_image->product_image = $image_name;
+            $new_image->product()->associate($product);
             $new_image->save();
         }
-        // return response()->json(['uploaded' => '/upload/'.$image_name]);
 
-        return Image::pluck('id')->toArray();
+        return Image::whereNull('product_id');
     }
 
     /**

@@ -51,10 +51,10 @@
 						<div class="form-group">
 							@if(count($product->images) > 0)
 								@foreach($product->images->slice(0,3) as $image)
-									<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=150>
+									<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=120>
 								@endforeach
 							@else 
-								<img src="{{URL::asset('/vintage_image/no.png')}}" alt="" width=150>
+								<img src="{{URL::asset('/vintage_image/no.png')}}" alt="" width=120>
 							@endif
 						</div>
 

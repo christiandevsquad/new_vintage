@@ -1,5 +1,5 @@
 <div class="form-group">
-	<input type="text" class="form-control" name="tags" data-role="tagsinput" value="
+	<input type="text" class="form-control" name="tags[]" data-role="tagsinput" value="
 		<?php 
 			$list = "";
 

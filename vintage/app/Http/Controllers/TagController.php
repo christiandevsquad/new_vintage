@@ -45,9 +45,9 @@ class TagController extends Controller
      * @param  \App\Model\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show($tags)
     {
-        //
+        dd($tags);
     }
 
     /**
@@ -68,9 +68,22 @@ class TagController extends Controller
      * @param  \App\Model\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update($diff_tags, $product)
     {
-        //
+        // To sync, I need only the tags IDs
+        $tags_ids = [];
+        
+        foreach($diff_tags as $tag) {
+            // If the product_tag exists, do
+            if ($tag )
+                array_push($tag->id);
+            // Else, if the p_tag doesnt exists, insert into a table
+            else {
+                $new_tag = new Tag;
+
+                $new_tag->product_name = $tag;
+            }
+        }
     }
 
     /**

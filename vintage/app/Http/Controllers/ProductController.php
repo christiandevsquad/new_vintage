@@ -57,7 +57,6 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $product = Product::find($id);
 
         $product->name = $request->name;
@@ -66,17 +65,29 @@ class ProductController extends Controller
         $product->description = $request->description;
 
         //Images part
-        $images = $request->file('images');
-
         if($request->hasFile('images')) {
+            $images = $request->file('images');
+
             $product_image = new ImageController();
-            $images_id = $product_image->store($request, $images, $product);
-            // $product->images()->saveMany(sync($images_id, false));
-            $product->images()->saveMany($images_id);
+            $img_collection = $product_image->store($request, $images, $product);
+
+            $product->images()->saveMany($image_collection);
         }
 
         //Tag part
+        $previous_tags = $product->tags()->pluck('product_tag')->toArray();
+        $input_tags = $request->tags;
+
+        if($previous_tags != $input_tags) {
+            $product_tags = new TagController();
+
+            $diff_tags = $input_tags->diff($preivous_tags);
+            $tag_collection = $product_tags->update($diff_tags, $product);
+        }
+        // $product_tag->show($tags);
         //$product->tags()->sync($request->tags, false);
+
+
 
         $product->save();
 
