@@ -2,7 +2,34 @@
 
 @section('content')
 
+<style>
+.b {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
 
+.thumb {
+    width: 100%;
+    height: auto;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+</style>
 
 <div class="container">   
 	<div class="row justify-content-center">
@@ -51,7 +78,11 @@
 						<div class="form-group">
 							@if(count($product->images) > 0)
 								@foreach($product->images->slice(0,3) as $image)
-									<img src="{{URL::asset('/upload/'.$image->product_image)}}" class="img-thumbnail" width=120>
+									<img src="{{ URL::asset('/upload/'.$image->product_image) }}" class="thumb" width=120>
+									{{--<button href="{{URL::to('products/' . $product->id . 'images' . $image->product_image}}" class="btn">Delete</button>
+									URL::to('nerds/' . $value->id . '/edit') --}}
+									<button href="{{ action('ImageController@index') }}" class="btn" method="GET">Delete</button>
+									<input name="_method" type="hidden" value="GET">
 								@endforeach
 							@else 
 								<img src="{{URL::asset('/vintage_image/no.png')}}" alt="" width=120>
@@ -64,8 +95,6 @@
 							<input id="imgs" type="file"  name="images[]" accept="image/*" multiple>
 						</div>
 
-						{{-- Tag input section - Needs to treat the called action --}}
-						{{-- <form action="{{ action('TagController@index', $product) }}" method="GET" enctype="multipart/form-data">  --}}
 						<div class="form-group">
 							@component('components.tag_input', ['product' => $product])
 							@endcomponent

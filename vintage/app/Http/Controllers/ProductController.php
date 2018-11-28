@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.product.add');
+        return view('admin.product.new_add');
     }
 
     public function store(Request $request)
@@ -32,11 +32,28 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
 
+        $product->save();
+
         //Images part
-        $product->images()->saveMany($request->images()->allRelatedIds());
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+
+            $product_image = new ImageController();
+            $img_collection = $product_image->store($request, $images, $product);
+
+            $product->images()->saveMany($img_collection);
+        }
 
         //Tag part
-        $product->tags()->sync($request->tags, false);
+        $input_tags = $request->tags;
+
+        if (!empty($input_tags)) {
+            $tag_control = new TagController();
+
+            $tags_ids = $tag_control->update($input_tags, $product->id);
+
+            $product->tags()->sync($tags_ids);
+        }
 
         $product->save();
 
@@ -45,7 +62,6 @@ class ProductController extends Controller
 
     public function show(Request $request)
     {       
-        return $request->tags;
     }
 
     public function edit($id)
@@ -65,29 +81,28 @@ class ProductController extends Controller
         $product->description = $request->description;
 
         //Images part
-        if($request->hasFile('images')) {
+        if ($request->hasFile('images')) {
             $images = $request->file('images');
 
             $product_image = new ImageController();
             $img_collection = $product_image->store($request, $images, $product);
 
-            $product->images()->saveMany($image_collection);
+            $product->images()->saveMany($img_collection);
         }
 
         //Tag part
         $previous_tags = $product->tags()->pluck('product_tag')->toArray();
         $input_tags = $request->tags;
 
-        if($previous_tags != $input_tags) {
-            $product_tags = new TagController();
+        // dd($previous_tags, $input_tags);
 
-            $diff_tags = $input_tags->diff($preivous_tags);
-            $tag_collection = $product_tags->update($diff_tags, $product);
+        if ($previous_tags != $input_tags) {
+            $tag_control = new TagController();
+
+            $tags_ids = $tag_control->update($input_tags, $product->id);
+
+            $product->tags()->sync($tags_ids);
         }
-        // $product_tag->show($tags);
-        //$product->tags()->sync($request->tags, false);
-
-
 
         $product->save();
 

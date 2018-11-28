@@ -15,6 +15,7 @@ class ImageController extends Controller
      */
     public function index()
     {
+        dd('INDEX');
         // return view('admin.image.image-view');
         // return $product->images;
     }
@@ -54,12 +55,6 @@ class ImageController extends Controller
         return Image::whereNull('product_id');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Image  $image
-     * @return \Illuminate\Http\Response
-     */
     public function show(Image $image)
     {
         //
@@ -94,9 +89,13 @@ class ImageController extends Controller
      * @param  \App\Model\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy()
     {
-        //
+        dd('ok');
+        $image = Image::find($id);
+        $image->delete();
+
+        return redirect()->route('product.edit', ['id' => $p_id]);
     }
 
 }
