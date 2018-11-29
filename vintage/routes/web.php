@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// New methods added in controllers
+// Route::post('products/csvToArray', 'ProductController@csvToArray');
+Route::post('products/importCsv', 'ProductController@importCsv');
+Route::get('products/importCsv', 'ProductController@importCsv');
+
 // Resources
 Route::resource('products', 'ProductController');
 Route::resource('products/{product}/images', 'ImageController');
@@ -23,5 +28,6 @@ Route::resource('products/{product}/tags', 'TagController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 // Routes for tests

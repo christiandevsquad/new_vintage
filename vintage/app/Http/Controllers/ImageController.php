@@ -89,13 +89,13 @@ class ImageController extends Controller
      * @param  \App\Model\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
         dd('ok');
         $image = Image::find($id);
         $image->delete();
 
-        return redirect()->route('product.edit', ['id' => $p_id]);
+        // return redirect()->route('product.edit', ['id' => $p_id]);
     }
 
 }

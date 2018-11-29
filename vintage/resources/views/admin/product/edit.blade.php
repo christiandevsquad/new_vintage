@@ -79,10 +79,11 @@
 							@if(count($product->images) > 0)
 								@foreach($product->images->slice(0,3) as $image)
 									<img src="{{ URL::asset('/upload/'.$image->product_image) }}" class="thumb" width=120>
-									{{--<button href="{{URL::to('products/' . $product->id . 'images' . $image->product_image}}" class="btn">Delete</button>
-									URL::to('nerds/' . $value->id . '/edit') --}}
-									<button href="{{ action('ImageController@index') }}" class="btn" method="GET">Delete</button>
-									<input name="_method" type="hidden" value="GET">
+                                    <form action="{{ action('ImageController@destroy', $image->id) }}" method="POST">
+                                        @csrf
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                    </form>
 								@endforeach
 							@else 
 								<img src="{{URL::asset('/vintage_image/no.png')}}" alt="" width=120>

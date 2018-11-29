@@ -25,6 +25,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        dd('aaaaaaa');
         $product = new Product;
 
         $product->name = $request->name;
@@ -115,5 +116,62 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect('products')->with('success', 'Information has been deleted');
+    }
+
+    // CSV import part
+    function csvToArray($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename))
+            return false;
+        
+        $header = null;
+        $data = [];
+
+        if (($handle = fopen($filename, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+            {
+                if (!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+        return $data; // return an array
+    }
+
+    public function importCsv(Request $request)
+    {
+        if ($request->hasFile('csv')) {
+            $csv_collection = $request->file('csv');
+        }
+        else {
+            dd('PROBLEM');
+        }
+
+        foreach($csv_collection as $csv_file) {
+            $file_name = $csv_file->getClientOriginalName();
+            $csv_file->move(public_path('CSV'), $file_name);
+            
+            $file = public_path('CSV/'.$file_name);
+
+            $customerArr = $this->csvToArray($file);
+
+            for ($i = 0; $i < count($customerArr); $i++) {
+                $product = new Product;
+
+                $product->name = $customerArr[$i]['name'];
+                $product->subName = $customerArr[$i]['subName'];
+                $product->price = $customerArr[$i]['price'];
+                $product->description = $customerArr[$i]['description'];
+        
+                $product->save();    
+            }
+
+        }
+
+        return 'Job done or what ever';    
     }
 }

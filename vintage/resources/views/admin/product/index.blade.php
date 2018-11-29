@@ -16,7 +16,37 @@
                 </div>
 
                 <div class="btn-group mr-2" role="toolbar" aria-label="Second group">
-                    <button type="button" class="btn btn-outline-success">Import Product</button>
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#importModal">Import Product</button>
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="importModal">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <form action="{{ action('ProductController@importCsv') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    {{--<input name="_method" type="hidden" value="PUT"> --}}
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Import product by .csv</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <input id="csv_input" type="file"  name="csv[]" accept=".csv" multiple>
+                                    </div>
+                                    
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-outline-primary">Import</button>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="input-group">
