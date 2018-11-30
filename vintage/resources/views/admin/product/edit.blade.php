@@ -2,34 +2,6 @@
 
 @section('content')
 
-<style>
-.b {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    background-color: #555;
-    color: white;
-    font-size: 16px;
-    padding: 12px 24px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.thumb {
-    width: 100%;
-    height: auto;
-}
-
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-}
-</style>
 
 <div class="container">   
 	<div class="row justify-content-center">
@@ -74,16 +46,11 @@
 						</div>
 
 						{{-- Upload multi-images section --}}
-
 						<div class="form-group">
 							@if(count($product->images) > 0)
 								@foreach($product->images->slice(0,3) as $image)
-									<img src="{{ URL::asset('/upload/'.$image->product_image) }}" class="thumb" width=120>
-                                    <form action="{{ action('ImageController@destroy', $image->id) }}" method="POST">
-                                        @csrf
-                                        <input name="_method" type="hidden" value="DELETE">
-                                        <button class="btn btn-outline-danger" type="submit">Delete</button>
-                                    </form>
+									<img src="{{ URL::asset('/upload/'.$image->product_image) }}" width=120>
+									<a class="btn btn-danger btn-sm" href="{{ url('products/'.$product->id.'/images/'.$image->id) }}"><i class="fa fa-trash"></i> Delete<a>
 								@endforeach
 							@else 
 								<img src="{{URL::asset('/vintage_image/no.png')}}" alt="" width=120>

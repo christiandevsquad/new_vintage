@@ -25,7 +25,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        dd('aaaaaaa');
         $product = new Product;
 
         $product->name = $request->name;
@@ -40,8 +39,8 @@ class ProductController extends Controller
             $images = $request->file('images');
 
             $product_image = new ImageController();
-            $img_collection = $product_image->store($request, $images, $product);
 
+            $img_collection = $product_image->store($request, $images, $product);
             $product->images()->saveMany($img_collection);
         }
 
@@ -52,7 +51,6 @@ class ProductController extends Controller
             $tag_control = new TagController();
 
             $tags_ids = $tag_control->update($input_tags, $product->id);
-
             $product->tags()->sync($tags_ids);
         }
 
@@ -86,8 +84,8 @@ class ProductController extends Controller
             $images = $request->file('images');
 
             $product_image = new ImageController();
-            $img_collection = $product_image->store($request, $images, $product);
 
+            $img_collection = $product_image->store($request, $images, $product);
             $product->images()->saveMany($img_collection);
         }
 
@@ -101,7 +99,6 @@ class ProductController extends Controller
             $tag_control = new TagController();
 
             $tags_ids = $tag_control->update($input_tags, $product->id);
-
             $product->tags()->sync($tags_ids);
         }
 
@@ -127,15 +124,14 @@ class ProductController extends Controller
         $header = null;
         $data = [];
 
-        if (($handle = fopen($filename, 'r')) !== false)
-        {
-            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
-            {
+        if (($handle = fopen($filename, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
                 if (!$header)
                     $header = $row;
                 else
                     $data[] = array_combine($header, $row);
             }
+
             fclose($handle);
         }
 
@@ -169,9 +165,8 @@ class ProductController extends Controller
         
                 $product->save();    
             }
-
         }
 
-        return 'Job done or what ever';    
+        return redirect('products');
     }
 }

@@ -19,6 +19,7 @@ Route::get('/', function () {
 // Route::post('products/csvToArray', 'ProductController@csvToArray');
 Route::post('products/importCsv', 'ProductController@importCsv');
 Route::get('products/importCsv', 'ProductController@importCsv');
+Route::get('products/{products}/images/{images}', 'ImageController@destroy');
 
 // Resources
 Route::resource('products', 'ProductController');
